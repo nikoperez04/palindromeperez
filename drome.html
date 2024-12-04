@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaeaea;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px solid #ff7777;
+            margin-top: 300px;
+            width: 500px;
+            margin-left: 700px;
+            border-radius: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.5s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .output {
+            margin-top: 20px;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            padding: 10px;
+            width: 300px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Palindrome Checker</h1>
+    <button id="startButton">Start Checking</button>
+    <div class="output" id="output"></div>
+
+    <script>
+        function housekeeping() {
+            return "Welcome to Palindrome Checker";
+        }
+
+        function endOfJob() {
+            return "Thank you for using the program!";
+        }
+
+        function isPalindrome(word) {
+            // Convert to lowercase and remove spaces and non-alphanumeric characters
+            const cleanedWord = word.toLowerCase().replace(/[\W_]/g, '').replace(/\s+/g, '');
+            return cleanedWord === cleanedWord.split('').reverse().join('');
+        }
+
+        function detailLoop() {
+            let continueChecking = true;
+            const outputElement = document.getElementById('output');
+            outputElement.innerHTML = ""; // Clear previous output
+
+            while (continueChecking) {
+                const word = prompt("Please enter any Word or Phrase:");
+
+                // Check if the input is null (user pressed cancel)
+                if (word === null) {
+                    continueChecking = false;
+                    outputElement.innerHTML += endOfJob();
+                    break;
+                }
+
+                if (isPalindrome(word)) {
+                    outputElement.innerHTML += `Congratulations! '${word}' is a palindrome.<br>`;
+                } else {
+                    outputElement.innerHTML += `Sorry, '${word}' is not a palindrome.<br>`;
+                }
+
+                const condition = prompt("Do you want to check another word? (Yes/No)");
+
+                if (condition === null || condition.toLowerCase() !== "yes") {
+                    continueChecking = false;
+                    outputElement.innerHTML += endOfJob();
+                }
+            }
+        }
+
+        document.getElementById('startButton').addEventListener('click', function() {
+            alert(housekeeping());
+            detailLoop();
+        });
+    </script>
+
+</body>
+</html>
